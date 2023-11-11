@@ -9,11 +9,17 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Orchid extends JavaPlugin {
 
+    private static Orchid instance;
     @Override
     public void onEnable() {
+        instance = this;
         ProjectileHandler projectileHandler = new ProjectileHandler();
         Bukkit.getServer().getPluginManager().registerEvents(new PlayerListener(),this);
         OrchidRegistry registry = new OrchidRegistry();
+    }
+
+    public static Orchid getInstance() {
+        return instance;
     }
 
     @Override

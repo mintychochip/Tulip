@@ -2,6 +2,7 @@ package mintychochip.orchid.builder;
 
 import mintychochip.orchid.container.*;
 import mintychochip.orchid.registry.OrchidRegistry;
+import mintychochip.orchid.shape.Shape;
 import mintychochip.orchid.util.SpellTokenizer;
 import org.bukkit.Bukkit;
 
@@ -49,6 +50,15 @@ public class SpellSequencer {
                 orchidSpell.getMechanic().setOrchidModifier(orchidModifier);
             }
         }
+        setOrchidShape();
+    }
+
+    public void setOrchidShape() {
+        String shape = tokenizer.getShape();
+        if(shape == null) {
+            return;
+        }
+        orchidSpell.getMechanic().setShape(OrchidRegistry.getShapeAlias().get(shape));
     }
 
     public OrchidSpell getOrchidSpell() {

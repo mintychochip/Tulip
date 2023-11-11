@@ -1,0 +1,4 @@
+name: Orchid
+version: '${project.version}'
+main: mintychochip.orchid.Orchid
+api-version: '1.20'

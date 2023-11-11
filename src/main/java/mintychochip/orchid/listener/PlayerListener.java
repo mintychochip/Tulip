@@ -6,8 +6,8 @@ import mintychochip.orchid.container.OrchidMechanic;
 import mintychochip.orchid.container.OrchidSpell;
 import mintychochip.orchid.events.AoeCastEvent;
 import mintychochip.orchid.handelr.ProjectileHandler;
-import mintychochip.orchid.shape.OrchidProjectile;
 import mintychochip.orchid.spellcaster.OrchidCaster;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,25 +16,31 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class PlayerListener implements Listener {
     @EventHandler
-    public void playerInteract(PlayerInteractEvent e) {
-        String page = "mechanic Fireball modifier velocity five modifier magnitude five,mechanic Explosion modifier velocity five modifier magnitude five";
+    public void playerInteract(PlayerInteractEvent event) {
+        String page = "shape projectile mechanic Fireball modifier velocity five modifier magnitude five,shape aoe mechanic Explosion modifier velocity five modifier magnitude five,shape aoe mechanic Explosion modifier velocity five modifier magnitude five";
         PageSequencer pageSequencer = new PageSequencer(page);
         OrchidSpell mainSpell = pageSequencer.getMainSpell();
 
-        OrchidCaster.getInstance().
+        OrchidCaster caster = new OrchidCaster(mainSpell);
+        caster.cast(new Context(event.getPlayer()));
     }
 
     @EventHandler
     public void onProjectileHit(ProjectileHitEvent event) {
-        OrchidMechanic orchidMechanic = ProjectileHandler.getInstance().getHitMap().get(event.getEntity().getEntityId());
-        if(orchidMechanic == null) {
+        OrchidSpell orchidSpell = ProjectileHandler.getInstance().getHitMap().get(event.getEntity().getEntityId());
+        if(orchidSpell == null) {
             return;
         }
-        if(orchidMechanic instanceof OrchidProjectile projectile) {
-            if(orchidMechanic.getTransition() != null) {
-                OrchidCaster caster = new OrchidCaster(orchidMechanic.getTransition());
-                caster.cast(new Context()
+        if(orchidSpell.getMechanic().getTransition() != null) {
+            OrchidCaster caster = new OrchidCaster(orchidSpell.getMechanic().getTransition());
+            Context context = orchidSpell.getMechanic().getContext();
+            Location location = null;
+            if(event.getHitBlock() == null) {
+                location = event.getHitEntity().getLocation();
+            } else {
+                location = event.getHitBlock().getLocation();
             }
+            caster.cast(new Context(context.getPlayer(),location,event.getHitBlock(),event.getHitEntity()));
         }
     }
 
@@ -46,7 +52,7 @@ public class PlayerListener implements Listener {
         }
         if(orchidMechanic.getTransition() != null) {
             OrchidCaster caster = new OrchidCaster(orchidMechanic.getTransition());
-            caster.cast(new Context(event.getPlayer(),event.getLocation()));
+            caster.cast(new Context(orchidMechanic.getContext().getPlayer(),orchidMechanic.getContext().getHitLocation()));
         }
     }
 }

@@ -8,21 +8,15 @@ import org.bukkit.event.HandlerList;
 
 public class AoeCastEvent extends OrchidEvent {
 
-    private final Location location;
-
-    public AoeCastEvent(Player player, Shape shape, OrchidMechanic orchidMechanic, Location location) {
-        super(player, shape, orchidMechanic);
-        this.location = location;
+    public AoeCastEvent(Shape shape, OrchidMechanic orchidMechanic) {
+        super(shape, orchidMechanic);
     }
 
     @Override
     public HandlerList getHandlers() {
-        return null;
+        return handlers;
     }
 
-    public Location getLocation() {
-        return location;
-    }
 
 }
 

@@ -1,6 +1,8 @@
 package mintychochip.orchid.builder;
 
+import mintychochip.orchid.container.OrchidMechanic;
 import mintychochip.orchid.container.OrchidSpell;
+import mintychochip.orchid.util.Diagnostics;
 import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
@@ -20,22 +22,16 @@ public class PageSequencer {
                 spells = new ArrayList<>();
             }
             spells.add(spellSequencer.getOrchidSpell());
-            
-            Collections.reverse(spells);
-            for(int i = 1; i < spells.size();i++) {
-                OrchidSpell orchidSpell = spells.get(i);
-                orchidSpell.getMechanic().setTransition(spells.get(i - 1));
-            }
-            mainSpell = spells.get(spells.size() - 1);
+
         }
         Collections.reverse(spells);
-        for (OrchidSpell spell : spells) {
-            if(spell.getMechanic().getTransition() == null) {
-                Bukkit.broadcastMessage("is null check");
-            } else {
-                Bukkit.broadcastMessage("is good");
-            }
-        }
+        for(int i = 0; i < spells.size() - 1;i++) {
+            OrchidSpell orchidSpell = spells.get(i + 1);
+            orchidSpell.getMechanic().setTransition(spells.get(i));}
+        mainSpell = spells.get(spells.size() - 1);
+        String string = mainSpell.getMechanic().toString();
+
+
 
     }
     public OrchidSpell getMainSpell() {

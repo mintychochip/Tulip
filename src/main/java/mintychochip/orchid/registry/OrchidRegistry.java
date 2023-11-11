@@ -18,6 +18,7 @@ public class OrchidRegistry {
     private static final Map<String, String> numericalAlias = new HashMap<>();
     private static final Map<String,OrchidMechanic> mechanicAlias = new HashMap<>();
     private static final Map<Shape, OrchidEvent> eventRegistry = new HashMap<>();
+    private static final Map<String,Shape> shapeAlias = new HashMap<>();
     public OrchidRegistry() {
         manual();
     }
@@ -32,6 +33,10 @@ public class OrchidRegistry {
         modifierAlias.put("magnitude",Modifier.MAGNITUDE);
         numericalAlias.put("five","5.0f");
         mechanicAlias.put("Explosion", new Explosion());
+        keywordAlias.put("shape",Keyword.SHAPE);
+        shapeAlias.put("projectile",Shape.PROJECTILE);
+        shapeAlias.put("aoe",Shape.AOE);
+        keywordAlias.put("wait",Keyword.WAIT);
 
     }
     public static Map<String, Modifier> getModifierAlias() {
@@ -48,5 +53,13 @@ public class OrchidRegistry {
 
     public static Map<String, OrchidMechanic> getMechanicAlias() {
         return mechanicAlias;
+    }
+
+    public static Map<Shape, OrchidEvent> getEventRegistry() {
+        return eventRegistry;
+    }
+
+    public static Map<String, Shape> getShapeAlias() {
+        return shapeAlias;
     }
 }

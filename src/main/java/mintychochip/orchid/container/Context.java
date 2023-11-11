@@ -9,19 +9,28 @@ public class Context {
     private Player player;
     private Block hitBlock;
     private Entity hitEntity;
-    private Location location;
+    private Location hitLocation;
 
-    public Context(Player player, Location location, Block hitBlock, Entity hitEntity) {
+    public Context(Player player, Location hitLocation, Block hitBlock, Entity hitEntity) {
         this.player = player;
-        this.location = location;
+        this.hitLocation = hitLocation;
+        this.hitBlock = hitBlock;
+        this.hitEntity = hitEntity;
+        if(hitLocation == null && (hitBlock != null || hitEntity != null)) {
+            if(hitBlock != null) {
+                this.hitLocation = hitBlock.getLocation();
+            } else {
+                this.hitLocation = hitEntity.getLocation();
+            }
+        }
     }
 
-    public Context(Player player, Location location) {
-        this(player, location, null, null);
+    public Context(Player player, Location hitLocation) {
+        this(player, hitLocation, null, null);
     }
 
-    public Context(Location location) {
-        this(null, location);
+    public Context(Player player) {
+        this(player, null);
     }
 
     public Player getPlayer() {
@@ -48,11 +57,11 @@ public class Context {
         this.hitEntity = hitEntity;
     }
 
-    public Location getLocation() {
-        return location;
+    public Location getHitLocation() {
+        return hitLocation;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setHitLocation(Location hitLocation) {
+        this.hitLocation = hitLocation;
     }
 }
