@@ -2,6 +2,7 @@ package mintychochip.orchid.spells;
 
 import mintychochip.orchid.container.OrchidMechanic;
 import mintychochip.orchid.shape.OrchidProjectile;
+import mintychochip.orchid.shape.implementation.ProjectileImplementation;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -12,11 +13,8 @@ public class Fireball extends OrchidMechanic implements OrchidProjectile {
 
     @Override
     public int castProjectile() {
-        Location location = getContext().getPlayer().getLocation();
-        Player player = getContext().getPlayer();
-        Entity entity = location.getWorld().spawnEntity(location, EntityType.FIREBALL);
-        entity.setVelocity(player.getLocation().getDirection().multiply(5.0f));
-        return entity.getEntityId();
+        ProjectileImplementation projectileImplementation = new ProjectileImplementation(this); //cleaner way of spawning a projectile, have to just put the fireball in the map
+        return projectileImplementation.castProjectile();
     }
 
     @Override

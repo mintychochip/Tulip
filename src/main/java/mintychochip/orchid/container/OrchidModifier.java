@@ -2,6 +2,7 @@ package mintychochip.orchid.container;
 
 import org.bukkit.enchantments.Enchantment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrchidModifier {
@@ -43,4 +44,5 @@ public class OrchidModifier {
     public float getMagnitude() {
         return magnitude;
     }
+
 }

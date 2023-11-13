@@ -9,6 +9,7 @@ public class OrchidMechanic {
     private OrchidModifier orchidModifier;
     private Shape shape;
     private long delay;
+    private String name;
 
     public OrchidSpell getTransition() {
         return Transition;
@@ -48,5 +49,13 @@ public class OrchidMechanic {
 
     public void setDelay(long delay) {
         this.delay = delay;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

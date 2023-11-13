@@ -8,6 +8,7 @@ import mintychochip.orchid.events.OrchidEvent;
 import mintychochip.orchid.spells.Blink;
 import mintychochip.orchid.spells.Explosion;
 import mintychochip.orchid.spells.Fireball;
+import org.bukkit.entity.EntityType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,8 +19,8 @@ public class OrchidRegistry {
     private static final Map<String, Keyword> keywordAlias = new HashMap<>();
     private static final Map<String, String> numericalAlias = new HashMap<>();
     private static final Map<String,OrchidMechanic> mechanicAlias = new HashMap<>();
-    private static final Map<Shape, OrchidEvent> eventRegistry = new HashMap<>();
     private static final Map<String,Shape> shapeAlias = new HashMap<>();
+    private static final Map<String, EntityType> projectileAlias = new HashMap<>();
     public OrchidRegistry() {
         manual();
     }
@@ -40,6 +41,7 @@ public class OrchidRegistry {
         keywordAlias.put("wait",Keyword.WAIT);
         mechanicAlias.put("Blink",new Blink());
         shapeAlias.put("self",Shape.SELF);
+        projectileAlias.put("fireball",EntityType.FIREBALL);
 
     }
     public static Map<String, Modifier> getModifierAlias() {
@@ -58,11 +60,11 @@ public class OrchidRegistry {
         return mechanicAlias;
     }
 
-    public static Map<Shape, OrchidEvent> getEventRegistry() {
-        return eventRegistry;
-    }
-
     public static Map<String, Shape> getShapeAlias() {
         return shapeAlias;
+    }
+
+    public static Map<String, EntityType> getProjectileAlias() {
+        return projectileAlias;
     }
 }

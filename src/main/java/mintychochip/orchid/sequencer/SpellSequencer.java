@@ -5,6 +5,7 @@ import mintychochip.orchid.registry.OrchidRegistry;
 import mintychochip.orchid.shape.Shape;
 import mintychochip.orchid.util.SpellTokenizer;
 import org.bukkit.Bukkit;
+import org.bukkit.enchantments.Enchantment;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -22,17 +23,20 @@ public class SpellSequencer {
         setup();
     }
     public void setup() {
-        OrchidMechanic orchidMechanic = OrchidRegistry.getMechanicAlias().get(tokenizer.getMechanicName());
-        if(orchidMechanic != null) {
+        String name = tokenizer.getMechanicName();
+
+        if (name != null) {
+            OrchidMechanic mechanic = OrchidRegistry.getMechanicAlias().get(name);
+            mechanic.setName(name);
             orchidSpell = new OrchidSpell();
             try {
-                orchidSpell.setMechanic(orchidMechanic.getClass().getDeclaredConstructor().newInstance());
+                orchidSpell.setMechanic(mechanic.getClass().getDeclaredConstructor().newInstance());
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
         List<PackagedModifier> packagedModifiers = tokenizer.getPackagedModifiers();
-        if(packagedModifiers != null) {
+        if (packagedModifiers != null) {
             OrchidModifier orchidModifier = new OrchidModifier();
             for (PackagedModifier packagedModifier : tokenizer.getPackagedModifiers()) {
                 switch (packagedModifier.getType()) {
@@ -44,21 +48,21 @@ public class SpellSequencer {
                         float v = Float.parseFloat(packagedModifier.getValue());
                         orchidModifier.setMagnitude(v);
                     }
+                    case ENCHANTMENT: {
+                        String v = packagedModifier.getValue();
+                        //add a way to grab enchant from registry
+                    }
                 }
             }
-            if(orchidSpell.getMechanic() != null) {
+            if (orchidSpell.getMechanic() != null) {
                 orchidSpell.getMechanic().setOrchidModifier(orchidModifier);
             }
         }
-        setOrchidShape();
-    }
 
-    public void setOrchidShape() {
         String shape = tokenizer.getShape();
-        if(shape == null) {
-            return;
+        if (shape != null) {
+            orchidSpell.getMechanic().setShape(OrchidRegistry.getShapeAlias().get(shape));
         }
-        orchidSpell.getMechanic().setShape(OrchidRegistry.getShapeAlias().get(shape));
     }
 
     public OrchidSpell getOrchidSpell() {
