@@ -3,7 +3,9 @@ package mintychochip.orchid.spellcaster;
 import mintychochip.orchid.Orchid;
 import mintychochip.orchid.container.Context;
 import mintychochip.orchid.container.OrchidSpell;
-import mintychochip.orchid.handelr.ProjectileHandler;
+import mintychochip.orchid.events.SelfCastEvent;
+import mintychochip.orchid.handler.ProjectileHandler;
+import mintychochip.orchid.shape.OrchidSelf;
 import mintychochip.orchid.shape.Shape;
 import mintychochip.orchid.events.AoeCastEvent;
 import mintychochip.orchid.shape.OrchidAoe;
@@ -31,7 +33,6 @@ public class OrchidCaster {
                         if(spell.getMechanic() instanceof OrchidProjectile projectile) {
                             int i = projectile.castProjectile();
                             ProjectileHandler.getInstance().getHitMap().put(i,spell);
-                            break;
                         }
 
                     }
@@ -40,15 +41,27 @@ public class OrchidCaster {
                         if(spell.getMechanic() instanceof OrchidAoe aoe) {
                             Bukkit.broadcastMessage("explosion");
                             boolean b = aoe.castAoe();
-                            Bukkit.getPluginManager().callEvent(new AoeCastEvent(shape,spell.getMechanic()));
+                            if(b) {
+                                Bukkit.getPluginManager().callEvent(new AoeCastEvent(shape,spell.getMechanic()));
+                            }
                         }
+                    }
+                    case SELF -> {
+                        if(spell.getMechanic() instanceof OrchidSelf self) {
+                            Bukkit.broadcastMessage("casted");
+                            boolean b = self.castSelf();
+                            if(b) {
+                                Bukkit.getPluginManager().callEvent(new SelfCastEvent(shape,spell.getMechanic()));
+                                self.applyParticleSelf();
+                            }
 
+                        }
                     }
                     default -> {
                     }
                 }
             }
-        }.runTaskLater(Orchid.getInstance(),5L);
+        }.runTaskLater(Orchid.getInstance(),0L);
 
 
     }

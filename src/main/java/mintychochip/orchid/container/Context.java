@@ -16,8 +16,8 @@ public class Context {
         this.hitLocation = hitLocation;
         this.hitBlock = hitBlock;
         this.hitEntity = hitEntity;
-        if(hitLocation == null && (hitBlock != null || hitEntity != null)) {
-            if(hitBlock != null) {
+        if (hitLocation == null && (hitBlock != null || hitEntity != null)) {
+            if (hitBlock != null) {
                 this.hitLocation = hitBlock.getLocation();
             } else {
                 this.hitLocation = hitEntity.getLocation();

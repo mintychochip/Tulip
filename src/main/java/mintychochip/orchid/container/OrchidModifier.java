@@ -7,7 +7,6 @@ import java.util.List;
 public class OrchidModifier {
 
 
-
     private float velocity;
     private List<Enchantment> enchantmentList;
     private boolean split;

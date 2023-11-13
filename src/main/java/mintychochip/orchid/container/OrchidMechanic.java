@@ -9,6 +9,7 @@ public class OrchidMechanic {
     private OrchidModifier orchidModifier;
     private Shape shape;
     private long delay;
+
     public OrchidSpell getTransition() {
         return Transition;
     }

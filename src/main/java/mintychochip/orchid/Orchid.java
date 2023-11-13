@@ -1,9 +1,8 @@
 package mintychochip.orchid;
 
-import mintychochip.orchid.handelr.ProjectileHandler;
+import mintychochip.orchid.handler.ProjectileHandler;
 import mintychochip.orchid.listener.PlayerListener;
 import mintychochip.orchid.registry.OrchidRegistry;
-import mintychochip.orchid.spellcaster.OrchidCaster;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 

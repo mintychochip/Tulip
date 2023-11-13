@@ -1,9 +1,6 @@
-package mintychochip.orchid.builder;
+package mintychochip.orchid.sequencer;
 
-import mintychochip.orchid.container.OrchidMechanic;
 import mintychochip.orchid.container.OrchidSpell;
-import mintychochip.orchid.util.Diagnostics;
-import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
 import java.util.Collections;

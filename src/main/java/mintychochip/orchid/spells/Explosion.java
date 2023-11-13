@@ -3,6 +3,7 @@ package mintychochip.orchid.spells;
 import mintychochip.orchid.container.Context;
 import mintychochip.orchid.container.OrchidMechanic;
 import mintychochip.orchid.shape.OrchidAoe;
+import mintychochip.orchid.shape.OrchidSelf;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 
@@ -25,5 +26,4 @@ public class Explosion extends OrchidMechanic implements OrchidAoe {
     public void applyParticleAoe() {
 
     }
-
 }

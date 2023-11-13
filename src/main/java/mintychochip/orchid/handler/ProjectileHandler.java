@@ -1,6 +1,5 @@
-package mintychochip.orchid.handelr;
+package mintychochip.orchid.handler;
 
-import mintychochip.orchid.container.OrchidMechanic;
 import mintychochip.orchid.container.OrchidSpell;
 
 import java.util.HashMap;
@@ -12,10 +11,9 @@ public class ProjectileHandler {
     private static ProjectileHandler instance;
 
 
+    private final Map<Integer, OrchidSpell> hitMap = new HashMap<>(); //have to add projectile deletion in here
 
-    private Map<Integer, OrchidSpell> hitMap = new HashMap<>(); //have to add projectile deletion in here
-
-    private Map<Integer, UUID> playerProjectileLaunch = new HashMap<>();
+    private final Map<Integer, UUID> playerProjectileLaunch = new HashMap<>();
 
     public ProjectileHandler() {
         instance = this;

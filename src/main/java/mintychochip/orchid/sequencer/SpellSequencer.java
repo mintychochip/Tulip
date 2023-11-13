@@ -1,4 +1,4 @@
-package mintychochip.orchid.builder;
+package mintychochip.orchid.sequencer;
 
 import mintychochip.orchid.container.*;
 import mintychochip.orchid.registry.OrchidRegistry;

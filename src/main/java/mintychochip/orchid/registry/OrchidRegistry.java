@@ -5,6 +5,7 @@ import mintychochip.orchid.container.Modifier;
 import mintychochip.orchid.container.OrchidMechanic;
 import mintychochip.orchid.shape.Shape;
 import mintychochip.orchid.events.OrchidEvent;
+import mintychochip.orchid.spells.Blink;
 import mintychochip.orchid.spells.Explosion;
 import mintychochip.orchid.spells.Fireball;
 
@@ -37,6 +38,8 @@ public class OrchidRegistry {
         shapeAlias.put("projectile",Shape.PROJECTILE);
         shapeAlias.put("aoe",Shape.AOE);
         keywordAlias.put("wait",Keyword.WAIT);
+        mechanicAlias.put("Blink",new Blink());
+        shapeAlias.put("self",Shape.SELF);
 
     }
     public static Map<String, Modifier> getModifierAlias() {
