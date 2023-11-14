@@ -2,8 +2,10 @@ package mintychochip.orchid.shape;
 
 public interface OrchidAoe {
 
-    public boolean castAoe();
+    boolean castAoe();
 
-    public void applyParticleAoe();
+    void applyParticleAoe();
+
+    void effect();
 
 }

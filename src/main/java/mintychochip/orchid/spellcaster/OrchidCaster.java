@@ -2,14 +2,16 @@ package mintychochip.orchid.spellcaster;
 
 import mintychochip.orchid.Orchid;
 import mintychochip.orchid.container.Context;
+import mintychochip.orchid.container.OrchidMechanic;
 import mintychochip.orchid.container.OrchidSpell;
+import mintychochip.orchid.events.AoeCastEvent;
 import mintychochip.orchid.events.SelfCastEvent;
 import mintychochip.orchid.handler.ProjectileHandler;
-import mintychochip.orchid.shape.OrchidSelf;
-import mintychochip.orchid.shape.Shape;
-import mintychochip.orchid.events.AoeCastEvent;
 import mintychochip.orchid.shape.OrchidAoe;
 import mintychochip.orchid.shape.OrchidProjectile;
+import mintychochip.orchid.shape.OrchidSelf;
+import mintychochip.orchid.shape.Shape;
+import mintychochip.orchid.shape.implementation.ProjectileImplementation;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -31,8 +33,13 @@ public class OrchidCaster {
                 switch(shape) {
                     case PROJECTILE -> {
                         if(spell.getMechanic() instanceof OrchidProjectile projectile) {
+                            OrchidMechanic mechanic = spell.getMechanic();
+                            mechanic.setImplementation(new ProjectileImplementation(mechanic));
                             int i = projectile.castProjectile();
-                            ProjectileHandler.getInstance().getHitMap().put(i,spell);
+                            if (i > 0) {
+                                ProjectileHandler.getInstance().getHitMap().put(i, spell);
+                                //broadcast event here
+                            }
                         }
 
                     }

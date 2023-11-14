@@ -1,15 +1,16 @@
 package mintychochip.orchid.container;
 
 import mintychochip.orchid.shape.Shape;
+import mintychochip.orchid.shape.implementation.Implementation;
 
-public class OrchidMechanic {
-
-    private OrchidSpell Transition;
-    private Context context;
-    private OrchidModifier orchidModifier;
-    private Shape shape;
-    private long delay;
-    private String name;
+public abstract class OrchidMechanic { //make all protected
+    protected Implementation implementation;
+    protected OrchidSpell Transition;
+    protected Context context;
+    protected OrchidModifier orchidModifier;
+    protected Shape shape;
+    protected long delay;
+    protected String name;
 
     public OrchidSpell getTransition() {
         return Transition;
@@ -57,5 +58,13 @@ public class OrchidMechanic {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Implementation getImplementation() {
+        return implementation;
+    }
+
+    public void setImplementation(Implementation implementation) {
+        this.implementation = implementation;
     }
 }

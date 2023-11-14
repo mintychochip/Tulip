@@ -1,37 +1,25 @@
 package mintychochip.orchid.shape.implementation;
 
-import mintychochip.orchid.container.Context;
 import mintychochip.orchid.container.OrchidMechanic;
-import mintychochip.orchid.container.OrchidModifier;
 import mintychochip.orchid.registry.OrchidRegistry;
 import mintychochip.orchid.shape.OrchidProjectile;
 import org.bukkit.Location;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 
-public class ProjectileImplementation implements OrchidProjectile {
-
-    private final OrchidMechanic mechanic;
-    private Context context;
-    private Player player;
+public class ProjectileImplementation extends Implementation implements OrchidProjectile {
     private Projectile spawnedProjectile;
     private EntityType type;
-    private boolean magnitudeAffected;
 
     public ProjectileImplementation(OrchidMechanic mechanic) {
-        this.mechanic = mechanic;
+        super(mechanic);
         String name = mechanic.getName();
         if(name != null) {
-            this.type = OrchidRegistry.getProjectileAlias().get(name);
-        }
-        Context context = mechanic.getContext();
-        if(context != null) {
-            this.context = context;
-            this.player = context.getPlayer(); // checked whether player is part of context, cannot instantiate a context object without player
+            type = OrchidRegistry.getProjectileAlias().get(name);
         }
     }
+
+
     @Override
     public int castProjectile() { //generalized method to cast projectile objects
         Location playerLocation = player.getLocation();
