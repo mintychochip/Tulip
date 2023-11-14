@@ -3,14 +3,26 @@ package mintychochip.orchid.shape.implementation;
 import mintychochip.orchid.container.OrchidMechanic;
 import mintychochip.orchid.shape.OrchidAoe;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AoeImplementation extends Implementation implements OrchidAoe {
-
+    //probably want a method to collect entities within the range of the mechanic
     private final Location castLocation;
+    private List<Entity> nearbyEntities;
 
     public AoeImplementation(OrchidMechanic mechanic) {
         super(mechanic);
         castLocation = context.getHitLocation() != null ? context.getHitLocation() : player.getLocation();
+        if (castLocation != null) {
+            nearbyEntities = new ArrayList<>();
+            int range = mechanic.getMechanicSettings().getRange();
+            if (castLocation.getWorld() != null) {
+                nearbyEntities.addAll(castLocation.getWorld().getNearbyEntities(castLocation, range, range, range));
+            }
+        }
     }
 
     @Override
@@ -21,11 +33,11 @@ public class AoeImplementation extends Implementation implements OrchidAoe {
         return aoe.castAoe();
     }
 
-    @Override
-    public void applyParticleAoe() {
-    }
-
     public Location getCastLocation() {
         return castLocation;
+    }
+
+    public List<Entity> getNearbyEntities() {
+        return nearbyEntities;
     }
 }

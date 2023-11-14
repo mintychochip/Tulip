@@ -9,9 +9,8 @@ public abstract class Implementation {
     protected final OrchidMechanic mechanic; // can generalize this, make a base class
     protected Context context;
     protected Player player;
-    protected boolean magnitudeAffected;
 
-    protected Implementation(OrchidMechanic mechanic, boolean magnitudeAffected) {
+    protected Implementation(OrchidMechanic mechanic) {
         this.mechanic = mechanic;
         Context context = null;
         if (mechanic != null) {
@@ -22,10 +21,5 @@ public abstract class Implementation {
             this.context = context;
             this.player = context.getPlayer();
         }
-        this.magnitudeAffected = magnitudeAffected;
-    }
-
-    protected Implementation(OrchidMechanic mechanic) {
-        this(mechanic, false);
     }
 }

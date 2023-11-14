@@ -18,8 +18,4 @@ public class Explosion extends OrchidMechanic implements OrchidAoe {
         return true;
     }
 
-    @Override
-    public void applyParticleAoe() {
-
-    }
 }
