@@ -15,21 +15,14 @@ public class AoeImplementation extends Implementation implements OrchidAoe {
 
     @Override
     public boolean castAoe() {
-        if (mechanic instanceof OrchidAoe) {
-            effect();
+        if (!(mechanic instanceof OrchidAoe aoe)) {
+            return false;
         }
-        return false;
+        return aoe.castAoe();
     }
 
     @Override
     public void applyParticleAoe() {
-    }
-
-    @Override
-    public void effect() {
-        if (mechanic instanceof OrchidAoe aoe) {
-            aoe.effect();
-        }
     }
 
     public Location getCastLocation() {

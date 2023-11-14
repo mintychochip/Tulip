@@ -11,21 +11,16 @@ public class Explosion extends OrchidMechanic implements OrchidAoe {
     @Override
     public boolean castAoe() {
         AoeImplementation implementation = (AoeImplementation) getImplementation();
-        implementation.castAoe();
+        Location castLocation = implementation.getCastLocation();
+        if (castLocation.getWorld() == null) {
+            return false;
+        }
+        castLocation.getWorld().createExplosion(castLocation, orchidModifier.getMagnitude());
         return true;
     }
 
     @Override
     public void applyParticleAoe() {
 
-    }
-
-    @Override
-    public void effect() { //actual effect
-        AoeImplementation implementation = (AoeImplementation) getImplementation();
-        Location castLocation = implementation.getCastLocation();
-        if(castLocation.getWorld() != null) {
-            castLocation.getWorld().createExplosion(castLocation, orchidModifier.getMagnitude());
-        }
     }
 }

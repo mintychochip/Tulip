@@ -12,23 +12,15 @@ import java.util.Map;
 
 public class SpellTokenizer {
     private final Map<String, Keyword> tokenizedSpell = new HashMap<>();
-    private List<PackagedModifier> packagedModifiers;
-    private List<Keyword> spellOrder;
-    private String mechanicName;
-    private String shape;
-    private String wait;
-
-    private final String spell;
+    private final List<PackagedModifier> packagedModifiers;
+    private final String mechanicName;
+    private final String shape;
+    private final String wait;
 
     public SpellTokenizer(String spell) {
-        this.spell = spell;
-        setup();
-    }
-
-    public void setup() {
         StringBuilder string = new StringBuilder();
         Keyword current = null;
-        for (String s : spell.split(" ")) { //stirng,keyword format for easy parsing
+        for (String s : spell.split(" ")) {
             if (OrchidRegistry.getKeywordAlias().containsKey(s)) {
                 tokenizedSpell.put(string.toString().strip(), current);
                 current = OrchidRegistry.getKeywordAlias().get(s);
@@ -37,15 +29,16 @@ public class SpellTokenizer {
             string.append(s).append(" ");
         }
         tokenizedSpell.put(string.toString(), current);
-        setPackagedModifiers();
+
+        packagedModifiers = makePackagedModifiers();
         mechanicName = getElement(Keyword.MECHANIC);
         shape = getElement(Keyword.SHAPE);
         wait = getElement(Keyword.WAIT);
     }
 
-    public void setPackagedModifiers() {
-        List<String> checkableStrings = getCheckableStrings(Keyword.MODIFIER);
-        for (String modifier : checkableStrings) {
+    public List<PackagedModifier> makePackagedModifiers() {
+        List<PackagedModifier> modifiers = new ArrayList<>();
+        for (String modifier : getCheckableStrings(Keyword.MODIFIER)) {
             Modifier modifierType = null;
             String value = null;
             for (String token : modifier.split(" ")) { //could opt for string builder to have two words but idk
@@ -56,11 +49,9 @@ public class SpellTokenizer {
                     modifierType = OrchidRegistry.getModifierAlias().get(token);
                 }
             }
-            if (packagedModifiers == null) {
-                packagedModifiers = new ArrayList<>();
-            }
-            packagedModifiers.add(new PackagedModifier(modifierType, value));
+            modifiers.add(new PackagedModifier(modifierType, value));
         }
+        return modifiers;
     }
 
     public String getElement(Keyword keyword) {

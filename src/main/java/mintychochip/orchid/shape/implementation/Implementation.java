@@ -13,7 +13,11 @@ public abstract class Implementation {
 
     protected Implementation(OrchidMechanic mechanic, boolean magnitudeAffected) {
         this.mechanic = mechanic;
-        Context context = mechanic.getContext();
+        Context context = null;
+        if (mechanic != null) {
+            mechanic.setImplementation(this);
+            context = mechanic.getContext();
+        }
         if (context != null) {
             this.context = context;
             this.player = context.getPlayer();

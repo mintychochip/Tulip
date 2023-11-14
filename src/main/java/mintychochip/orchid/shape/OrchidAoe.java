@@ -6,6 +6,4 @@ public interface OrchidAoe {
 
     void applyParticleAoe();
 
-    void effect();
-
 }
