@@ -41,7 +41,7 @@ public class OrchidRegistry {
         keywordAlias.put("wait",Keyword.WAIT);
         mechanicAlias.put("Blink",new Blink());
         shapeAlias.put("self",Shape.SELF);
-        projectileAlias.put("fireball",EntityType.FIREBALL);
+        projectileAlias.put("Fireball",EntityType.FIREBALL);
 
     }
     public static Map<String, Modifier> getModifierAlias() {

@@ -11,6 +11,7 @@ import mintychochip.orchid.shape.OrchidAoe;
 import mintychochip.orchid.shape.OrchidProjectile;
 import mintychochip.orchid.shape.OrchidSelf;
 import mintychochip.orchid.shape.Shape;
+import mintychochip.orchid.shape.implementation.AoeImplementation;
 import mintychochip.orchid.shape.implementation.ProjectileImplementation;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -30,35 +31,34 @@ public class OrchidCaster {
 
             @Override
             public void run() {
-                switch(shape) {
+                switch (shape) {
                     case PROJECTILE -> {
-                        if(spell.getMechanic() instanceof OrchidProjectile projectile) {
-                            OrchidMechanic mechanic = spell.getMechanic();
-                            mechanic.setImplementation(new ProjectileImplementation(mechanic));
+                        if (spell.getMechanic() instanceof OrchidProjectile projectile) {
+
+                            spell.getMechanic().setImplementation(new ProjectileImplementation(spell.getMechanic()));
                             int i = projectile.castProjectile();
                             if (i > 0) {
                                 ProjectileHandler.getInstance().getHitMap().put(i, spell);
-                                //broadcast event here
                             }
                         }
 
                     }
 
                     case AOE -> {
-                        if(spell.getMechanic() instanceof OrchidAoe aoe) {
-                            Bukkit.broadcastMessage("explosion");
+                        if (spell.getMechanic() instanceof OrchidAoe aoe) {
+                            spell.getMechanic().setImplementation(new AoeImplementation(spell.getMechanic()));
                             boolean b = aoe.castAoe();
-                            if(b) {
-                                Bukkit.getPluginManager().callEvent(new AoeCastEvent(shape,spell.getMechanic()));
+                            if (b) {
+                                Bukkit.getPluginManager().callEvent(new AoeCastEvent(shape, spell.getMechanic()));
                             }
                         }
                     }
                     case SELF -> {
-                        if(spell.getMechanic() instanceof OrchidSelf self) {
+                        if (spell.getMechanic() instanceof OrchidSelf self) {
                             Bukkit.broadcastMessage("casted");
                             boolean b = self.castSelf();
-                            if(b) {
-                                Bukkit.getPluginManager().callEvent(new SelfCastEvent(shape,spell.getMechanic()));
+                            if (b) {
+                                Bukkit.getPluginManager().callEvent(new SelfCastEvent(shape, spell.getMechanic()));
                                 self.applyParticleSelf();
                             }
 
@@ -68,10 +68,11 @@ public class OrchidCaster {
                     }
                 }
             }
-        }.runTaskLater(Orchid.getInstance(),0L);
+        }.runTaskLater(Orchid.getInstance(), 0L);
 
 
     }
+
     public void callEvent() {
 
     }

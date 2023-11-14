@@ -4,4 +4,5 @@ public enum Modifier {
     VELOCITY,
     MAGNITUDE,
     ENCHANTMENT,
+    RANGE
 }

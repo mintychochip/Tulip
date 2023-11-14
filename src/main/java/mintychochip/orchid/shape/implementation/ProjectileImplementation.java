@@ -3,7 +3,9 @@ package mintychochip.orchid.shape.implementation;
 import mintychochip.orchid.container.OrchidMechanic;
 import mintychochip.orchid.registry.OrchidRegistry;
 import mintychochip.orchid.shape.OrchidProjectile;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Projectile;
 
@@ -24,7 +26,9 @@ public class ProjectileImplementation extends Implementation implements OrchidPr
     public int castProjectile() { //generalized method to cast projectile objects
         Location playerLocation = player.getLocation();
         if(playerLocation.getWorld() != null && type != null) {
-            spawnedProjectile = (Projectile) playerLocation.getWorld().spawnEntity(playerLocation, type); //cant have errors at this line, because type is pulled from hash
+            BlockFace facing = player.getFacing();
+            Bukkit.broadcastMessage(facing.toString());
+            spawnedProjectile = (Projectile) playerLocation.getWorld().spawnEntity(playerLocation.add(playerLocation.getDirection().getX(),1f,playerLocation.getDirection().getZ()), type); //cant have errors at this line, because type is pulled from hash
             spawnedProjectile.setVelocity(playerLocation.getDirection().multiply(mechanic.getOrchidModifier().getVelocity()));
             return spawnedProjectile.getEntityId();
         }

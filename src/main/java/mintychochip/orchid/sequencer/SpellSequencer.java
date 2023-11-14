@@ -24,16 +24,15 @@ public class SpellSequencer {
     }
     public void setup() {
         String name = tokenizer.getMechanicName();
-
         if (name != null) {
-            OrchidMechanic mechanic = OrchidRegistry.getMechanicAlias().get(name);
-            mechanic.setName(name);
             orchidSpell = new OrchidSpell();
+            OrchidMechanic mechanic = OrchidRegistry.getMechanicAlias().get(name);
             try {
                 orchidSpell.setMechanic(mechanic.getClass().getDeclaredConstructor().newInstance());
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+            orchidSpell.getMechanic().setName(name);
         }
         List<PackagedModifier> packagedModifiers = tokenizer.getPackagedModifiers();
         if (packagedModifiers != null) {
