@@ -4,6 +4,7 @@ import mintychochip.orchid.shape.Shape;
 import mintychochip.orchid.shape.implementation.Implementation;
 
 public abstract class OrchidMechanic { //make all protected
+    protected OrchidMechanicSettings mechanicSettings;
     protected Implementation implementation;
     protected OrchidSpell Transition;
     protected Context context;
@@ -66,5 +67,13 @@ public abstract class OrchidMechanic { //make all protected
 
     public void setImplementation(Implementation implementation) {
         this.implementation = implementation;
+    }
+
+    public OrchidMechanicSettings getMechanicSettings() {
+        return mechanicSettings;
+    }
+
+    public void setMechanicSettings(OrchidMechanicSettings mechanicSettings) {
+        this.mechanicSettings = mechanicSettings;
     }
 }
