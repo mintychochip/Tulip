@@ -18,7 +18,8 @@ public class AoeImplementation extends Implementation implements OrchidAoe {
         castLocation = context.getHitLocation() != null ? context.getHitLocation() : player.getLocation();
         if (castLocation != null) {
             nearbyEntities = new ArrayList<>();
-            int range = mechanic.getMechanicSettings().getRange();
+            ///int range = mechanic.getMechanicSettings().getRange();
+            int range = 5;
             if (castLocation.getWorld() != null) {
                 nearbyEntities.addAll(castLocation.getWorld().getNearbyEntities(castLocation, range, range, range));
             }

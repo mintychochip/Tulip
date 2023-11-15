@@ -15,7 +15,7 @@ public class Immolate extends OrchidMechanic implements OrchidSelf, OrchidAoe {
             return false;
         }
         for (Entity nearbyEntity : ((AoeImplementation) getImplementation()).getNearbyEntities()) {
-            nearbyEntity.setFireTicks(mechanicSettings.getDuration());
+            nearbyEntity.setFireTicks(15);
         }
         return true;
     }

@@ -1,5 +1,6 @@
 package mintychochip.orchid.shape.implementation;
 
+import mintychochip.orchid.Orchid;
 import mintychochip.orchid.container.OrchidMechanic;
 import mintychochip.orchid.registry.OrchidRegistry;
 import mintychochip.orchid.shape.OrchidProjectile;
@@ -28,13 +29,9 @@ public class ProjectileImplementation extends Implementation implements OrchidPr
         //injection
         if(playerLocation.getWorld() != null && type != null) {
             BlockFace facing = player.getFacing();
-            Bukkit.broadcastMessage(facing.toString());
             spawnedProjectile = (Projectile) playerLocation.getWorld().spawnEntity(playerLocation.add(playerLocation.getDirection().getX(),1f,playerLocation.getDirection().getZ()), type); //cant have errors at this line, because type is pulled from hash
             spawnedProjectile.setVelocity(playerLocation.getDirection().multiply(mechanic.getOrchidModifier().getVelocity()));
             return spawnedProjectile.getEntityId();
-        }
-        if (mechanic instanceof OrchidProjectile projectile) {
-            projectile.castProjectile();
         }
         return -1;
     }

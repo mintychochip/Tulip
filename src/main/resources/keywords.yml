@@ -1,0 +1,14 @@
+keywords:
+  start: start
+  mechanic: mechanic
+  end: end
+  shape: shape
+  wait: wait
+  modifier: modifier
+mechanics:
+  Fireball:
+modifiers:
+  wadwad: ENCHANTMENT
+  wadwadasda: velocity
+  wadawdwadasdaa: magnitude
+
