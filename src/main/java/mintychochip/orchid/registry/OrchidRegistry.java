@@ -1,11 +1,11 @@
 package mintychochip.orchid.registry;
 
 import mintychochip.orchid.Orchid;
+import mintychochip.orchid.config.KeywordConfig;
 import mintychochip.orchid.container.Keyword;
 import mintychochip.orchid.container.Modifier;
 import mintychochip.orchid.container.OrchidMechanic;
 import mintychochip.orchid.shape.Shape;
-import mintychochip.orchid.events.OrchidEvent;
 import mintychochip.orchid.spells.*;
 import org.bukkit.entity.EntityType;
 
@@ -14,15 +14,20 @@ import java.util.Map;
 
 public class OrchidRegistry {
 
-    private static final Map<String, Modifier> modifierAlias = new HashMap<>();
+    private static final Map<String, EntityType> projectileAlias = new HashMap<>(); //make this mutable, add way to register ints or floats
     private static Map<String, Keyword> keywordAlias;
+    private static Map<String, Modifier> modifierAlias;
     private static final Map<String, String> numericalAlias = new HashMap<>();
+
     private static final Map<String,OrchidMechanic> mechanicAlias = new HashMap<>();
-    private static final Map<String,Shape> shapeAlias = new HashMap<>();
-    private static final Map<String, EntityType> projectileAlias = new HashMap<>();
+    private static Map<String, Shape> shapeAlias;
     public OrchidRegistry() {
         manual();
-        keywordAlias = Orchid.getRegistryConfig().getKeywords();
+        KeywordConfig keywordConfig = Orchid.getKeywordConfig();
+
+        keywordAlias = keywordConfig.keywords();
+        modifierAlias = keywordConfig.modifiers();
+        shapeAlias = keywordConfig.shapes();
 
     }
 

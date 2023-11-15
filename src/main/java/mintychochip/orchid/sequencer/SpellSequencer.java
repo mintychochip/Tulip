@@ -1,26 +1,28 @@
 package mintychochip.orchid.sequencer;
 
-import mintychochip.orchid.container.*;
+import mintychochip.orchid.container.OrchidMechanic;
+import mintychochip.orchid.container.OrchidModifier;
+import mintychochip.orchid.container.OrchidSpell;
+import mintychochip.orchid.container.PackagedModifier;
 import mintychochip.orchid.registry.OrchidRegistry;
-import mintychochip.orchid.shape.Shape;
 import mintychochip.orchid.util.SpellTokenizer;
-import org.bukkit.Bukkit;
-import org.bukkit.enchantments.Enchantment;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.Map;
 
 public class SpellSequencer {
 
     private OrchidSpell orchidSpell;
-    private SpellTokenizer tokenizer;
-    private String spell;
+    private final SpellTokenizer tokenizer;
+    private final String spell;
 
     public SpellSequencer(String spell) {
         this.spell = spell;
         tokenizer = new SpellTokenizer(spell);
         setup();
+        if (!isValidSpell()) {
+            spell = null;
+        }
     }
     public void setup() {
         String name = tokenizer.getMechanicName();
@@ -29,8 +31,9 @@ public class SpellSequencer {
             OrchidMechanic mechanic = OrchidRegistry.getMechanicAlias().get(name);
             try {
                 orchidSpell.setMechanic(mechanic.getClass().getDeclaredConstructor().newInstance());
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (InvocationTargetException | InstantiationException | IllegalAccessException |
+                     NoSuchMethodException e) {
+                throw new RuntimeException(e);
             }
             orchidSpell.getMechanic().setName(name);
         }
@@ -64,6 +67,9 @@ public class SpellSequencer {
         }
     }
 
+    public boolean isValidSpell() {
+        return orchidSpell.getMechanic() != null;
+    }
     public OrchidSpell getOrchidSpell() {
         return orchidSpell;
     }

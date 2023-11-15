@@ -3,12 +3,14 @@ package mintychochip.orchid.sequencer;
 import mintychochip.orchid.container.OrchidSpell;
 import org.bukkit.inventory.meta.BookMeta;
 
-import javax.swing.text.AbstractDocument;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class BookReader {
 
-    private BookMeta bookMeta;
+    private final BookMeta bookMeta;
 
     private Map<Integer,String> content;
 
@@ -35,6 +37,9 @@ public class BookReader {
         return new ArrayList<>(content.values());
     }
 
+    public boolean hasPages() {
+        return bookMeta.hasPages();
+    }
 
 
 }

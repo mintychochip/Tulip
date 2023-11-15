@@ -1,10 +1,8 @@
 package mintychochip.orchid.shape.implementation;
 
-import mintychochip.orchid.Orchid;
 import mintychochip.orchid.container.OrchidMechanic;
 import mintychochip.orchid.registry.OrchidRegistry;
 import mintychochip.orchid.shape.OrchidProjectile;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.EntityType;
@@ -47,5 +45,13 @@ public class ProjectileImplementation extends Implementation implements OrchidPr
     public void applyParticleProjectile() {
         if(spawnedProjectile != null) {//add this projectile, and give it effect, probs hash
         }
+    }
+
+    public EntityType getType() {
+        return type;
+    }
+
+    public Projectile getSpawnedProjectile() {
+        return spawnedProjectile;
     }
 }

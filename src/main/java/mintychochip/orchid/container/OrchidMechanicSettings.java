@@ -4,6 +4,9 @@ public class OrchidMechanicSettings {
     private final boolean isMagnitudeAffectable;
     private final int range;
     private final int duration;
+    private int cost;
+    private double cooldown;
+    private boolean isCantrip;
 
     public OrchidMechanicSettings(boolean isMagnitudeAffectable, int range, int duration) {
         this.isMagnitudeAffectable = isMagnitudeAffectable;

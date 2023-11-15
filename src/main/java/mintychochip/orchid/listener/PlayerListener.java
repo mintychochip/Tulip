@@ -1,15 +1,14 @@
 package mintychochip.orchid.listener;
 
-import mintychochip.orchid.events.SelfCastEvent;
-import mintychochip.orchid.sequencer.BookReader;
-import mintychochip.orchid.sequencer.PageSequencer;
 import mintychochip.orchid.container.Context;
+import mintychochip.orchid.container.OrchidBook;
 import mintychochip.orchid.container.OrchidMechanic;
 import mintychochip.orchid.container.OrchidSpell;
 import mintychochip.orchid.events.AoeCastEvent;
+import mintychochip.orchid.events.SelfCastEvent;
 import mintychochip.orchid.handler.ProjectileHandler;
+import mintychochip.orchid.sequencer.BookReader;
 import mintychochip.orchid.spellcaster.OrchidCaster;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -25,8 +24,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.BookMeta;
 
-import java.awt.print.Book;
-
 public class PlayerListener implements Listener {
     @EventHandler
     public void playerInteract(PlayerInteractEvent event) {
@@ -38,12 +35,9 @@ public class PlayerListener implements Listener {
         if (event.getHand().equals(EquipmentSlot.HAND) && event.getAction() == Action.LEFT_CLICK_AIR) {
             ItemStack itemInOffHand = playerInventory.getItemInOffHand();
             if (itemInOffHand.getType() == Material.WRITTEN_BOOK && itemInOffHand.getItemMeta() instanceof BookMeta bookMeta) {
-                BookReader bookReader = new BookReader(bookMeta);
-                String page = bookReader.getPage(0);
-                Bukkit.broadcastMessage(page);
-                PageSequencer pageSequencer = new PageSequencer(page);
-                OrchidSpell mainSpell = pageSequencer.getMainSpell();
-                OrchidCaster caster = new OrchidCaster(mainSpell);
+                OrchidBook book = new OrchidBook(new BookReader(bookMeta));
+                OrchidSpell spell = book.getSpell(0);
+                OrchidCaster caster = new OrchidCaster(spell);
                 caster.cast(new Context(event.getPlayer()));
             }
         }
@@ -51,10 +45,11 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onProjectileHit(ProjectileHitEvent event) {
-        OrchidSpell orchidSpell = ProjectileHandler.getInstance().getHitMap().get(event.getEntity().getEntityId());
+        OrchidSpell orchidSpell = ProjectileHandler.getInstance().getHitMap().remove(event.getEntity().getEntityId());
         if (orchidSpell == null) {
             return;
         }
+        orchidSpell.getMechanic().setContext(new Context(orchidSpell.getMechanic().getContext().getPlayer(), null, event.getHitBlock(), event.getHitEntity()));
         if (orchidSpell.getMechanic().getTransition() != null) {
             OrchidCaster caster = new OrchidCaster(orchidSpell.getMechanic().getTransition());
             Context context = orchidSpell.getMechanic().getContext();

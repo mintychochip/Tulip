@@ -1,6 +1,6 @@
 package mintychochip.orchid;
 
-import mintychochip.orchid.config.RegistryConfig;
+import mintychochip.orchid.config.KeywordConfig;
 import mintychochip.orchid.handler.ProjectileHandler;
 import mintychochip.orchid.listener.PlayerListener;
 import mintychochip.orchid.registry.OrchidRegistry;
@@ -9,16 +9,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Orchid extends JavaPlugin {
 
-    private static RegistryConfig registryConfig;
+    private static KeywordConfig keywordConfig;
     private static Orchid instance;
-    @Override
-    public void onEnable() {
-        instance = this;
-        ProjectileHandler projectileHandler = new ProjectileHandler();
-        Bukkit.getServer().getPluginManager().registerEvents(new PlayerListener(),this);
-        registryConfig = new RegistryConfig("keywords.yml");
-        OrchidRegistry registry = new OrchidRegistry();
 
+    public static KeywordConfig getKeywordConfig() {
+        return keywordConfig;
     }
 
     public static Orchid getInstance() {
@@ -30,7 +25,13 @@ public final class Orchid extends JavaPlugin {
         // Plugin shutdown logic
     }
 
-    public static RegistryConfig getRegistryConfig() {
-        return registryConfig;
+    @Override
+    public void onEnable() {
+        instance = this;
+        ProjectileHandler projectileHandler = new ProjectileHandler();
+        Bukkit.getServer().getPluginManager().registerEvents(new PlayerListener(),this);
+        keywordConfig = new KeywordConfig("keywords.yml");
+        OrchidRegistry registry = new OrchidRegistry();
+
     }
 }
