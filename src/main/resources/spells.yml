@@ -1,0 +1,7 @@
+Fireball: #same as class name
+  keywords: [fireball]
+  range: 15
+  duration: 15
+  cost: 15
+  cooldown: 15
+

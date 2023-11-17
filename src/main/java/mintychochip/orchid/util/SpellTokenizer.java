@@ -4,6 +4,8 @@ import mintychochip.orchid.container.Keyword;
 import mintychochip.orchid.container.Modifier;
 import mintychochip.orchid.container.PackagedModifier;
 import mintychochip.orchid.registry.OrchidRegistry;
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +22,7 @@ public class SpellTokenizer {
     public SpellTokenizer(String spell) {
         StringBuilder string = new StringBuilder();
         Keyword current = null;
-        for (String s : spell.split(" ")) {
+        for (String s : spell.toUpperCase().split(" ")) {
             if (OrchidRegistry.getKeywordAlias().containsKey(s)) {
                 tokenizedSpell.put(string.toString().strip(), current);
                 current = OrchidRegistry.getKeywordAlias().get(s);
@@ -32,6 +34,7 @@ public class SpellTokenizer {
 
         packagedModifiers = makePackagedModifiers();
         mechanicName = getElement(Keyword.MECHANIC);
+        Bukkit.broadcastMessage(mechanicName);
         shape = getElement(Keyword.SHAPE);
         wait = getElement(Keyword.WAIT);
     }
@@ -83,6 +86,8 @@ public class SpellTokenizer {
         }
         return result;
     }
+
+
 
     public List<PackagedModifier> getPackagedModifiers() {
         return packagedModifiers;

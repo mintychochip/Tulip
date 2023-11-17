@@ -4,13 +4,12 @@ import mintychochip.orchid.Orchid;
 import mintychochip.orchid.container.Context;
 import mintychochip.orchid.container.OrchidSpell;
 import mintychochip.orchid.events.AoeCastEvent;
+import mintychochip.orchid.events.LaserCastEvent;
 import mintychochip.orchid.events.SelfCastEvent;
 import mintychochip.orchid.handler.ProjectileHandler;
-import mintychochip.orchid.shape.OrchidAoe;
-import mintychochip.orchid.shape.OrchidProjectile;
-import mintychochip.orchid.shape.OrchidSelf;
-import mintychochip.orchid.shape.Shape;
+import mintychochip.orchid.shape.*;
 import mintychochip.orchid.shape.implementation.AoeImplementation;
+import mintychochip.orchid.shape.implementation.LaserImplementation;
 import mintychochip.orchid.shape.implementation.ProjectileImplementation;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -54,8 +53,18 @@ public class OrchidCaster {
                                 Bukkit.getPluginManager().callEvent(new SelfCastEvent(shape, spell.getMechanic()));
                                 self.applyParticleSelf();
                             }
-
                         }
+                    }
+                    case LASER -> {
+                        if (spell.getMechanic() instanceof OrchidLaser laser) {
+                            int i = new LaserImplementation(spell.getMechanic()).castLaser();
+                            if(i > 0) {
+                                ProjectileHandler.getInstance().getHitMap().put(i, spell);
+
+                                Bukkit.getPluginManager().callEvent(new LaserCastEvent(shape,spell.getMechanic()));
+                            }
+
+                    }
                     }
                     default -> {
                     }

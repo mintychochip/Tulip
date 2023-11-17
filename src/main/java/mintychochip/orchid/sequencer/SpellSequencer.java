@@ -4,6 +4,7 @@ import mintychochip.orchid.container.OrchidMechanic;
 import mintychochip.orchid.container.OrchidModifier;
 import mintychochip.orchid.container.OrchidSpell;
 import mintychochip.orchid.container.PackagedModifier;
+import mintychochip.orchid.registry.MechanicRegistry;
 import mintychochip.orchid.registry.OrchidRegistry;
 import mintychochip.orchid.util.SpellTokenizer;
 
@@ -28,7 +29,7 @@ public class SpellSequencer {
         String name = tokenizer.getMechanicName();
         if (name != null) {
             orchidSpell = new OrchidSpell();
-            OrchidMechanic mechanic = OrchidRegistry.getMechanicAlias().get(name);
+            OrchidMechanic mechanic = MechanicRegistry.getMechanics().get(name);
             try {
                 orchidSpell.setMechanic(mechanic.getClass().getDeclaredConstructor().newInstance());
             } catch (InvocationTargetException | InstantiationException | IllegalAccessException |

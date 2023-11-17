@@ -1,14 +1,16 @@
-keywords:
-  start: start
-  mechanic: mechanic
-  end: end
-  shape: shape
-  wait: wait
-  modifier: modifier
-mechanics:
-  Fireball:
-modifiers:
-  wadwad: ENCHANTMENT
-  wadwadasda: velocity
-  wadawdwadasdaa: magnitude
+keyword:
+  START: [start]
+  MECHANIC: [mechanic]
+  END: [end]
+  SHAPE: [shape]
+  WAIT: [wait]
+  MODIFIER: [modifier]
+shape:
+  PROJECTILE: [projectile]
+  AOE: [aoe]
+  SELF: [self]
+modifier:
+  ENCHANTMENT: [enchantment]
+  MAGNITUDE: [magnitude]
+
 

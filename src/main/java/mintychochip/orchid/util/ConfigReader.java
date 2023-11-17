@@ -1,6 +1,7 @@
 package mintychochip.orchid.util;
 
 import mintychochip.orchid.Orchid;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -50,6 +51,9 @@ public class ConfigReader {
     }
     public String getString(String path) {
         return config.getString(path);
+    }
+    public ConfigurationSection getConfigurationSection(String header) {
+        return config.getConfigurationSection(header);
     }
 
     public void setCurrentPath(String currentPath) {

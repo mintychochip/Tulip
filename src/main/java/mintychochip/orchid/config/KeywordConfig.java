@@ -21,9 +21,9 @@ public class KeywordConfig { //will add mechanics config,cost,cooldown, and proj
         ConfigurationSection configurationSection = getConfigurationSection("modifier");
         Map<String, Modifier> modifiers = new HashMap<>();
         for (String key : configurationSection.getKeys(false)) {
-            Modifier modifier = Modifier.valueOf(key);
+            Modifier modifier = Modifier.valueOf(key.toUpperCase());
             for (String s : configurationSection.getStringList(key)) {
-                modifiers.put(s, modifier);
+                modifiers.put(s.toUpperCase(), modifier);
             }
         }
         return modifiers;
@@ -33,9 +33,9 @@ public class KeywordConfig { //will add mechanics config,cost,cooldown, and proj
         ConfigurationSection configurationSection = getConfigurationSection("keyword");
         Map<String, Keyword> keywords = new HashMap<>();
         for (String key : configurationSection.getKeys(false)) {
-            Keyword keyword = Keyword.valueOf(key);
+            Keyword keyword = Keyword.valueOf(key.toUpperCase());
             for (String s : configurationSection.getStringList(key)) {
-                keywords.put(s, keyword);
+                keywords.put(s.toUpperCase(), keyword);
             }
         }
         return keywords;
@@ -45,9 +45,9 @@ public class KeywordConfig { //will add mechanics config,cost,cooldown, and proj
         ConfigurationSection configurationSection = getConfigurationSection("shape");
         Map<String, Shape> shapes = new HashMap<>();
         for (String key : configurationSection.getKeys(false)) {
-            Shape shape = Shape.valueOf(key);
+            Shape shape = Shape.valueOf(key.toUpperCase());
             for (String s : configurationSection.getStringList(key)) {
-                shapes.put(s, shape);
+                shapes.put(s.toUpperCase(), shape);
             }
         }
         return shapes;

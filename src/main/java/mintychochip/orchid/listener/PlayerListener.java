@@ -5,6 +5,7 @@ import mintychochip.orchid.container.OrchidBook;
 import mintychochip.orchid.container.OrchidMechanic;
 import mintychochip.orchid.container.OrchidSpell;
 import mintychochip.orchid.events.AoeCastEvent;
+import mintychochip.orchid.events.LaserCastEvent;
 import mintychochip.orchid.events.SelfCastEvent;
 import mintychochip.orchid.handler.ProjectileHandler;
 import mintychochip.orchid.sequencer.BookReader;
@@ -34,7 +35,7 @@ public class PlayerListener implements Listener {
         }
         if (event.getHand().equals(EquipmentSlot.HAND) && event.getAction() == Action.LEFT_CLICK_AIR) {
             ItemStack itemInOffHand = playerInventory.getItemInOffHand();
-            if (itemInOffHand.getType() == Material.WRITTEN_BOOK && itemInOffHand.getItemMeta() instanceof BookMeta bookMeta) {
+            if (itemInOffHand.getType() == Material.WRITABLE_BOOK && itemInOffHand.getItemMeta() instanceof BookMeta bookMeta) {
                 OrchidBook book = new OrchidBook(new BookReader(bookMeta));
                 OrchidSpell spell = book.getSpell(0);
                 OrchidCaster caster = new OrchidCaster(spell);
@@ -92,6 +93,17 @@ public class PlayerListener implements Listener {
             OrchidCaster caster = new OrchidCaster(orchidMechanic.getTransition());
             Player player = orchidMechanic.getContext().getPlayer();
             caster.cast(new Context(player,player.getLocation()));
+        }
+    }
+    //@EventHandler
+    public void onLaserCastEvent(LaserCastEvent event) {
+        OrchidMechanic orchidMechanic = event.getMechanic();
+        if (orchidMechanic == null) {
+            return;
+        }
+        if (orchidMechanic.getTransition() != null) {
+            OrchidCaster caster = new OrchidCaster(orchidMechanic.getTransition());
+            caster.cast(new Context(orchidMechanic.getContext().getPlayer(), orchidMechanic.getContext().getHitLocation()));
         }
     }
 }
