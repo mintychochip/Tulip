@@ -1,12 +1,15 @@
 package mintychochip.orchid.sequencer;
 
+import mintychochip.orchid.Orchid;
 import mintychochip.orchid.container.OrchidMechanic;
 import mintychochip.orchid.container.OrchidModifier;
 import mintychochip.orchid.container.OrchidSpell;
 import mintychochip.orchid.container.PackagedModifier;
 import mintychochip.orchid.registry.MechanicRegistry;
 import mintychochip.orchid.registry.OrchidRegistry;
+import mintychochip.orchid.spells.Immolate;
 import mintychochip.orchid.util.SpellTokenizer;
+import org.bukkit.Bukkit;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -36,6 +39,7 @@ public class SpellSequencer {
                      NoSuchMethodException e) {
                 throw new RuntimeException(e);
             }
+            orchidSpell.getMechanic().setMechanicSettings(MechanicRegistry.getMechanicSettings().get(mechanic));
             orchidSpell.getMechanic().setName(name);
         }
         List<PackagedModifier> packagedModifiers = tokenizer.getPackagedModifiers();

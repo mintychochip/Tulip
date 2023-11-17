@@ -5,7 +5,7 @@ import java.util.List;
 public class OrchidMechanicSettings {
     private boolean isMagnitudeAffectable;
     private int range;
-    private double duration;
+    private int duration;
     private int cost;
     private double cooldown;
     private boolean isCantrip;
@@ -14,24 +14,25 @@ public class OrchidMechanicSettings {
     }
     private List<String> keywords;
 
-    public int getRange() {
-        return range;
-    }
-
-    public double getDuration() {
-        return duration;
-    }
-    private String name;
+   private int damage;
 
     public void setMagnitudeAffectable(boolean magnitudeAffectable) {
         isMagnitudeAffectable = magnitudeAffectable;
+    }
+
+    public int getRange() {
+        return range;
     }
 
     public void setRange(int range) {
         this.range = range;
     }
 
-    public void setDuration(double duration) {
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
@@ -59,19 +60,19 @@ public class OrchidMechanicSettings {
         isCantrip = cantrip;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
+    public List<String> getKeywords() {
+        return keywords;
     }
 
     public void setKeywords(List<String> keywords) {
         this.keywords = keywords;
     }
 
-    public List<String> getKeywords() {
-        return keywords;
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 }

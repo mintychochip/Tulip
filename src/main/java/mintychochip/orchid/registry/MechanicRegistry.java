@@ -13,10 +13,12 @@ public class MechanicRegistry {
 
     private final MechanicConfig mechanicConfig;
     private static Map<String, OrchidMechanic> mechanics;
-    private static Map<String,OrchidMechanicSettings> loadedSettings;
+    private static Map<OrchidMechanic,OrchidMechanicSettings> mechanicSettings;
 
     public MechanicRegistry() {
         mechanicConfig = Orchid.getMechanicConfig();
+        registerMechanics();
+
     }
     public void registerMechanics() {
         for (String key : mechanicConfig.getKeys()) {
@@ -24,22 +26,27 @@ public class MechanicRegistry {
             if(mechanic == null) {
                 return;
             }
+            mechanic.setMechanicSettings(mechanicConfig.getMechanicSettings(key));
             List<String> keywords = mechanicConfig.getMechanicSettings(key).getKeywords();
             if(mechanics == null) {
                 mechanics = new HashMap<>();
-                loadedSettings = new HashMap<>();
+                mechanicSettings = new HashMap<>();
             }
+            mechanicSettings.put(mechanic,mechanicConfig.getMechanicSettings(key));
             registerAlias(keywords,mechanic);
         }
     }
-
     public void registerAlias(List<String> alias, OrchidMechanic mechanic) {
         for (String s : alias) {
-            mechanics.put(s,mechanic);
+            mechanics.put(s.toUpperCase(),mechanic);
         }
     }
 
     public static Map<String, OrchidMechanic> getMechanics() {
         return mechanics;
+    }
+
+    public static Map<OrchidMechanic, OrchidMechanicSettings> getMechanicSettings() {
+        return mechanicSettings;
     }
 }

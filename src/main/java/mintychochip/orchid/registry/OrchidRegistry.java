@@ -32,6 +32,7 @@ public class OrchidRegistry {
     public void manual() {
         numericalAlias.put("FIVE","5.0f");
         projectileAlias.put("FIREBALL",EntityType.FIREBALL);
+
     }
 
     public static Map<String, Modifier> getModifierAlias() {

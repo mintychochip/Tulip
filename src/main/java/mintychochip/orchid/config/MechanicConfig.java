@@ -16,7 +16,8 @@ public class MechanicConfig {
         RANGE,
         DURATION,
         COST,
-        COOLDOWN
+        COOLDOWN,
+        DAMAGE
 
     }
 
@@ -37,8 +38,9 @@ public class MechanicConfig {
                     case COST -> orchidMechanicSettings.setCost(configurationSection.getInt(key));
                     case RANGE -> orchidMechanicSettings.setRange(configurationSection.getInt(key));
                     case COOLDOWN -> orchidMechanicSettings.setCooldown(configurationSection.getDouble(key));
-                    case DURATION -> orchidMechanicSettings.setDuration(configurationSection.getDouble(key));
+                    case DURATION -> orchidMechanicSettings.setDuration(configurationSection.getInt(key));
                     case KEYWORDS -> orchidMechanicSettings.setKeywords(configurationSection.getStringList(key));
+                    case DAMAGE -> orchidMechanicSettings.setDamage(configurationSection.getInt(key));
                 }
             }
         }
