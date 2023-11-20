@@ -14,6 +14,8 @@ import java.util.List;
 
 public class FlagListener implements Listener {
 
+    private final List<Player> playersCurrentlyUnderground = new ArrayList<>();
+
     public List<Player> playersCurrentlyInsideForest = new ArrayList<>();
 
     @EventHandler(priority = EventPriority.HIGH)
@@ -42,7 +44,7 @@ public class FlagListener implements Listener {
         }
         Location goingTo = event.getTo();
         if (goingTo != null) {
-            if (Lists.biomeListContains("FOREST").contains(goingTo.getBlock().getBiome())) { //something here with the scheduler, just check if theey are in the list 
+            if (Lists.biomeListContains("FOREST").contains(goingTo.getBlock().getBiome())) { //something here with the scheduler, just check if theey are in the list
                 // add permissions check here
                 if (!playersCurrentlyInsideForest.contains(event.getPlayer())) {
                     playersCurrentlyInsideForest.add(event.getPlayer());
@@ -51,5 +53,20 @@ public class FlagListener implements Listener {
                 playersCurrentlyInsideForest.remove(event.getPlayer());
             }
         }
-
     }
+
+    @EventHandler
+    public void playerMoveUnderY(final PlayerMoveEvent event) {
+        Location goingTo = event.getTo();
+        if (goingTo != null) {
+            if (goingTo.getY() <= 20.0f) {
+                playersCurrentlyUnderground.add(event.getPlayer());
+            } else {
+                playersCurrentlyUnderground.remove(event.getPlayer());
+            }
+        }
+    }
+
+    @EventHandler
+    public void
+}

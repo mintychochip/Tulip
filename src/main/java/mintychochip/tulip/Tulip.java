@@ -1,7 +1,6 @@
 package mintychochip.tulip;
 
 import mintychochip.tulip.tasks.FlagRefresh;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Tulip extends JavaPlugin {
@@ -21,8 +20,5 @@ public final class Tulip extends JavaPlugin {
     public void onEnable() {
         instance = this;
         FlagRefresh flagRefresh = new FlagRefresh();
-        Bukkit.getScheduler().runTaskTimer(() -> {
-
-        })
     }
 }
